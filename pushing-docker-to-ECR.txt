@@ -1,0 +1,8 @@
+# retag docker image 
+docker tag <image-tag> <repository-uri>
+
+# login to ecr
+aws ecr get-login-password --profile <profile-name> |sudo docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+
+# push docker image to ecr repository 
+docker push <repository-uri>
