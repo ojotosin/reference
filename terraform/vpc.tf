@@ -111,6 +111,6 @@ resource "aws_subnet" "private_datasubnetAZ2" {
   map_public_ip_on_launch   = false
 
   tags                      = {
-    Name                    = "private-appsubnetAZ2"
+    Name                    = "private-datasubnetAZ2"
   }
 }

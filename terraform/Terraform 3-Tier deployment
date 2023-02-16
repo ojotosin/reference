@@ -1,0 +1,81 @@
+#1 Create a terraform IAM user with programmatic access
+    >Create IAM user + name it (terraform-user)
+    >Create access key (<<security credentials) >Command Line Interface 
+    >Download the access key
+    
+    
+#2 Create a named profile for the IAM user
+     *****This allows to use that user's credential to authenticate with AWS environment
+    >go to terminal and configure
+       >aws configure --profile terraform-user<
+    >configure with the credentials + default region + default format
+    ******you can always go to this directly path to edit /.aws/
+    
+    
+#3 Create an S3 Bucket to store the terraform State file
+    >Create bucket + name it (tosin-terraform-remote-state)
+    >Bucket Versioning > Enable + Create bucket
+    
+    
+#4 Authenticate terraform with the AWS environment
+    
+    provider "aws" {
+      region = "us-east-1"
+      profile =  "terraform-user"
+    }
+
+#5 Configure the s3 backend to store state
+    
+    terraform {
+      backend "s3" {
+        bucket = "tosin-terraform-remote-state"          #name of the bucket created on S3
+        key    = "terraform.tfstate.dev"                 #The name terraform will give to the state file when it stores it in S3 bucket (it will do this upon running this code)
+        region = "us-east-1"
+      }
+    }
+    
+#6 Create vpc
+    create vpc.tf file
+    create variables.tf file
+    
+    
+#7 Create Nat gateway
+
+
+#8 Create security groups
+    Add ssh to the variable.tf file
+    
+    
+    
+#9 Create RDS
+    create db subnet group
+    create db instance
+        or get latest rds data db snapshot + create db instance
+    create database_snapshot_identifier in variable.tf + use arn of the snapshot as default
+    create database_instance_class in variable.tf + use db.t2.micro as default
+    create database_instance_identifier in variable.tf + use the database instance/cluster name as default
+    create multi_az_deployment in variable.tf + use false as default + bool as the type
+
+#10 Create Application Load Balancer
+    create ALB
+    create target group
+    create a listener on port 80 with redirect action
+    create a listener on port 443 with forward action
+
+#11 Create SNS Topic
+    create sns topic
+    create sns topic subscription
+
+#12 Create Auto Scaling Group
+    create a launch template
+    create auto scaling group
+    attach auto scaling group to alb target group
+    terraform aws autoscaling group notification
+
+#13 Create Record Set in Route 53
+    get hosted zone data details
+    create a record set in route 53
+    
+
+
+#
